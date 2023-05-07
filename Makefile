@@ -61,9 +61,10 @@ dnn.o: mem_check.h dnn.c
 	gcc -pg -o dnn dnn.o mem_check.o -lm
 	./dnn
 
-dnn_test.o: mem_check.h dnn_test.c cnn.c
-	gcc -pg -c -o dnn_test.o dnn_test.c cnn.c
+dnn_test.o: mem_check.h cnn.h dnn_test.c
+	gcc -pg -c -o dnn_test.o dnn_test.c
 
-./dnn_test: dnn_test.o mem_check.o
-	gcc -pg -o dnn_test dnn_test.o mem_check.o -lm
-	./dnn
+./dnn_test: dnn_test.o mem_check.o cnn.o
+	gcc -pg -o dnn_test -g dnn_test.o mem_check.o -lm
+	./dnn_test
+	gprof dnn_test gmon.out > dnn_test.txt
