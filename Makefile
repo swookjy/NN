@@ -50,3 +50,20 @@ test_rnn: ./rnn
 
 mnist.c: cnn.h
 cnn.c: cnn.h
+
+mem_check.o: mem_check.h mem_check.c
+	gcc -pg -c -o mem_check.o mem_check.c
+
+dnn.o: mem_check.h dnn.c
+	gcc -pg -c -o dnn.o dnn.c
+
+./dnn: dnn.o mem_check.o
+	gcc -pg -o dnn dnn.o mem_check.o -lm
+	./dnn
+
+dnn_test.o: mem_check.h dnn_test.c cnn.c
+	gcc -pg -c -o dnn_test.o dnn_test.c cnn.c
+
+./dnn_test: dnn_test.o mem_check.o
+	gcc -pg -o dnn_test dnn_test.o mem_check.o -lm
+	./dnn

@@ -9,7 +9,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <endian.h>
+//#include <endian.h>
+#include <sys/types.h>
+#include <machine/endian.h>
 #include <string.h>
 #include "cnn.h"
 
